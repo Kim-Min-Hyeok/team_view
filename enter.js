@@ -78,7 +78,6 @@ const teams = [
 window.submitName = async function submitName() {
   const nameInput = document.getElementById("participantName");
   const name = nameInput.value.trim();
-  const messageElement = document.getElementById("message");
 
   if (name) {
     const teamIndex = teams.findIndex((team) => team.members.includes(name));
@@ -95,20 +94,19 @@ window.submitName = async function submitName() {
         if (!currentMembers.includes(name)) {
           const updates = { [`${Date.now()}`]: name };
           await update(teamRef, updates);
-          messageElement.textContent = `${teams[teamIndex].name}에 성공적으로 등록되었습니다!`;
+          alert(`${teams[teamIndex].name}에 성공적으로 등록되었습니다!`);
           nameInput.value = ""; // 입력 필드 비우기
         } else {
-          messageElement.textContent = "이미 등록된 이름입니다.";
+          alert("이미 등록된 이름입니다.");
         }
       } catch (error) {
         console.error("Error reading current members", error);
-        messageElement.textContent =
-          "등록 중 오류가 발생했습니다. 다시 시도하세요.";
+        alert("등록 중 오류가 발생했습니다. 다시 시도하세요.");
       }
     } else {
-      messageElement.textContent = "입력한 이름이 팀 멤버 목록에 없습니다.";
+      alert("입력한 이름이 팀 멤버 목록에 없습니다.");
     }
   } else {
-    messageElement.textContent = "이름을 입력하세요.";
+    alert("이름을 입력하세요.");
   }
 };
