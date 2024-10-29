@@ -107,6 +107,8 @@ window.submitNames = async function submitNames() {
     .map((name) => name.trim())
     .filter((name) => name);
 
+  let nameExists = false;
+
   for (const name of newMembers) {
     const teamIndex = teams.findIndex((team) => team.members.includes(name));
 
@@ -119,20 +121,44 @@ window.submitNames = async function submitNames() {
           ? Object.values(snapshot.val())
           : [];
 
-        if (!currentMembers.includes(name)) {
-          const updates = { [`${Date.now()}`]: name };
-          await update(teamRef, updates);
+        if (currentMembers.includes(name)) {
+          nameExists = true;
+          break; // 중복 이름 발견 시 루프 중단
         }
       } catch (error) {
-        console.error("Error updating current members", error);
-        alert("등록 중 오류가 발생했습니다. 다시 시도하세요.");
+        console.error("Error checking current members", error);
+        alert("오류가 발생했습니다. 다시 시도하세요.");
+        return;
       }
     }
   }
 
-  alert("참가자 이름이 등록되었습니다!");
-  document.getElementById("entryInput").value = ""; // 입력 필드 비우기
+  if (nameExists) {
+    alert("이미 등록된 이름입니다.");
+  } else {
+    for (const name of newMembers) {
+      const teamIndex = teams.findIndex((team) => team.members.includes(name));
+
+      if (teamIndex !== -1) {
+        const teamRef = ref(database, `teams/${teamIndex}/currentMembers`);
+
+        try {
+          const updates = { [`${Date.now()}`]: name };
+          await update(teamRef, updates);
+        } catch (error) {
+          console.error("Error updating current members", error);
+          alert("등록 중 오류가 발생했습니다. 다시 시도하세요.");
+          return;
+        }
+      }
+    }
+
+    alert("참가자 이름이 등록되었습니다!");
+    document.getElementById("entryInput").value = ""; // 입력 필드 비우기
+    closeModal();
+  }
 };
+
 // 실시간 데이터 수신
 teams.forEach((team, index) => {
   const teamRef = ref(database, `teams/${index}/currentMembers`);
