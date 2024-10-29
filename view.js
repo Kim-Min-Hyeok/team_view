@@ -3,6 +3,7 @@ import {
   getDatabase,
   ref,
   update,
+  get,
   onValue,
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
