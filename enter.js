@@ -1,4 +1,4 @@
-// Firebase 구성 가져오기 (기존 설정과 동일하게 사용)
+// Firebase 구성 가져오기
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
@@ -15,7 +15,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-function submitName() {
+// 함수 정의 및 전역에 추가
+window.submitName = function submitName() {
     const nameInput = document.getElementById("participantName");
     const name = nameInput.value.trim();
     const messageElement = document.getElementById("message");
