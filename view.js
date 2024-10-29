@@ -5,6 +5,7 @@ import { getDatabase, ref, update, onValue } from "https://www.gstatic.com/fireb
 const firebaseConfig = {
   apiKey: "AIzaSyAWWeIHatcjbZJ_G4qTGE5AIib0uLkcJHc",
   authDomain: "pard-shortkathon.firebaseapp.com",
+  databaseURL: "https://pard-shortkathon-default-rtdb.firebaseio.com",
   projectId: "pard-shortkathon",
   storageBucket: "pard-shortkathon.appspot.com",
   messagingSenderId: "859662382781",
