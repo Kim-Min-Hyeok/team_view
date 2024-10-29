@@ -1,6 +1,6 @@
 // Firebase SDK 가져오기
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getDatabase, ref, update, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getDatabase, ref, update, onValue } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
 // Firebase 구성 정보
 const firebaseConfig = {
