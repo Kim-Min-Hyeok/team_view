@@ -1,8 +1,6 @@
-// Firebase SDK 가져오기
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 import { getDatabase, ref, update, onValue } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-// Firebase 구성 정보
 const firebaseConfig = {
   apiKey: "AIzaSyAWWeIHatcjbZJ_G4qTGE5AIib0uLkcJHc",
   authDomain: "pard-shortkathon.firebaseapp.com",
@@ -24,25 +22,25 @@ const teams = [
   { name: "5조", members: ["이지환", "김규희", "이서현", "김도경", "김지원", "김사랑", "김민제"], currentMembers: [] },
 ];
 
-function displayTeams() {
+window.displayTeams = function displayTeams() {
   teams.forEach((team, index) => {
     const teamDiv = document.getElementById(`team${index + 1}`);
     teamDiv.innerHTML = `<h2>${team.name}</h2><p>${team.currentMembers.join(", ") || ""}</p>`;
   });
 }
 
-function openModal() {
+window.openModal = function openModal() {
   document.getElementById("entryModal").style.display = "flex";
   document.getElementById("entryInput").focus();
   document.getElementById("warningText").style.visibility = "hidden";
 }
 
-function closeModal() {
+window.closeModal = function closeModal() {
   document.getElementById("entryModal").style.display = "none";
   document.getElementById("entryInput").value = "";
 }
 
-function submitNames() {
+window.submitNames = function submitNames() {
   const input = document.getElementById("entryInput").value;
   const newMembers = input.split(",").map((name) => name.trim()).filter((name) => name);
 
