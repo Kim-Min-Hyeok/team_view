@@ -7,7 +7,6 @@ import {
   onValue,
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-// Firebase 구성 및 초기화
 const firebaseConfig = {
   apiKey: "AIzaSyAWWeIHatcjbZJ_G4qTGE5AIib0uLkcJHc",
   authDomain: "pard-shortkathon.firebaseapp.com",
