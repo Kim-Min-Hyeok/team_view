@@ -2,8 +2,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebas
 import {
   getDatabase,
   ref,
-  set,
+  update,
   get,
+  child,
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
 const firebaseConfig = {
@@ -74,7 +75,7 @@ const teams = [
   },
 ];
 
-window.submitName = function submitName() {
+window.submitName = async function submitName() {
   const nameInput = document.getElementById("participantName");
   const name = nameInput.value.trim();
   const messageElement = document.getElementById("message");
@@ -85,27 +86,26 @@ window.submitName = function submitName() {
     if (teamIndex !== -1) {
       const teamRef = ref(database, `teams/${teamIndex}/currentMembers`);
 
-      get(teamRef)
-        .then((snapshot) => {
-          const currentMembers = snapshot.val()
-            ? Object.values(snapshot.val())
-            : [];
+      try {
+        const snapshot = await get(teamRef);
+        const currentMembers = snapshot.val()
+          ? Object.values(snapshot.val())
+          : [];
 
-          if (!currentMembers.includes(name)) {
-            currentMembers.push(name);
-            set(teamRef, currentMembers).then(() => {
-              messageElement.textContent = `${teams[teamIndex].name}에 성공적으로 등록되었습니다!`;
-              nameInput.value = ""; // 입력 필드 비우기
-            });
-          } else {
-            messageElement.textContent = "이미 등록된 이름입니다.";
-          }
-        })
-        .catch((error) => {
-          console.error("Error reading current members", error);
-          messageElement.textContent =
-            "등록 중 오류가 발생했습니다. 다시 시도하세요.";
-        });
+        if (!currentMembers.includes(name)) {
+          // 이름이 없을 경우에만 추가
+          const updates = { [`${Date.now()}`]: name };
+          await update(teamRef, updates);
+          messageElement.textContent = `${teams[teamIndex].name}에 성공적으로 등록되었습니다!`;
+          nameInput.value = ""; // 입력 필드 비우기
+        } else {
+          messageElement.textContent = "이미 등록된 이름입니다.";
+        }
+      } catch (error) {
+        console.error("Error reading current members", error);
+        messageElement.textContent =
+          "등록 중 오류가 발생했습니다. 다시 시도하세요.";
+      }
     } else {
       messageElement.textContent = "입력한 이름이 팀 멤버 목록에 없습니다.";
     }
