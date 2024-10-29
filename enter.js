@@ -4,7 +4,6 @@ import {
   ref,
   update,
   get,
-  child,
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
 const firebaseConfig = {
@@ -20,6 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+// 팀 정보를 정의합니다.
 const teams = [
   {
     name: "1조",
@@ -93,7 +93,6 @@ window.submitName = async function submitName() {
           : [];
 
         if (!currentMembers.includes(name)) {
-          // 이름이 없을 경우에만 추가
           const updates = { [`${Date.now()}`]: name };
           await update(teamRef, updates);
           messageElement.textContent = `${teams[teamIndex].name}에 성공적으로 등록되었습니다!`;
