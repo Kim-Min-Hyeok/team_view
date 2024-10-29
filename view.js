@@ -1,6 +1,8 @@
+// Firebase SDK 가져오기
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getDatabase, ref, update, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
+// Firebase 구성 정보
 const firebaseConfig = {
   apiKey: "AIzaSyAWWeIHatcjbZJ_G4qTGE5AIib0uLkcJHc",
   authDomain: "pard-shortkathon.firebaseapp.com",
