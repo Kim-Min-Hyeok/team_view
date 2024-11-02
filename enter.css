@@ -21,7 +21,7 @@ input {
     font-size: 1.2em;
     margin: 10px 0;
     border-radius: 5px;
-    border: 1px solid #00BFFF;
+    border: 1px solid #64C59A;
     background-color: #333;
     color: white;
 }
@@ -30,7 +30,7 @@ button {
     padding: 10px 20px;
     font-size: 1.2em;
     color: white;
-    background-color: #00BFFF;
+    background-color: #64C59A;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -38,5 +38,5 @@ button {
 
 p {
     margin-top: 15px;
-    color: #00BFFF;
+    color: #64C59A;
 }
