@@ -1,5 +1,5 @@
 body {
-    background: url('images/background_mobile.jpg') no-repeat center;
+    background: url('/images/background_mobile.jpg') no-repeat center;
     background-size: cover;
     display: flex;
     justify-content: center;
