@@ -45,7 +45,7 @@ const teams = [
       "이채정",
       "김민준",
       "이유현",
-      "김도원",
+      "최준영",
       "조성준",
       "김민규",
     ],
@@ -58,7 +58,7 @@ const teams = [
       "김하경",
       "박경민",
       "도현학",
-      "최준영",
+      "김도원",
       "현승훈",
       "김나임",
     ],
@@ -83,9 +83,11 @@ const teams = [
 window.displayTeams = function displayTeams() {
   teams.forEach((team, index) => {
     const teamDiv = document.getElementById(`team${index + 1}`);
-    teamDiv.innerHTML = `<h2>${team.name}</h2><p>${
-      team.currentMembers.join(", ") || ""
-    }</p>`;
+    const membersDiv = teamDiv.querySelector(".team-members");
+
+    membersDiv.innerHTML = team.currentMembers
+      .map((member) => `<p>${member}</p>`)
+      .join("");
   });
 };
 
@@ -95,9 +97,13 @@ window.openModal = function openModal() {
   document.getElementById("warningText").style.visibility = "hidden";
 };
 
-window.closeModal = function closeModal() {
-  document.getElementById("entryModal").style.display = "none";
-  document.getElementById("entryInput").value = "";
+window.closeModal = function closeModal(event) {
+  const modal = document.getElementById("entryModal");
+  // 모달 외부를 클릭했을 때 닫기
+  if (event && event.target === modal) {
+    modal.style.display = "none";
+    document.getElementById("entryInput").value = "";
+  }
 };
 
 window.submitNames = async function submitNames() {
@@ -108,6 +114,7 @@ window.submitNames = async function submitNames() {
     .filter((name) => name);
 
   let nameExists = false;
+  let unregisteredNames = []; // 등록되지 않은 이름들을 저장할 배열
 
   for (const name of newMembers) {
     const teamIndex = teams.findIndex((team) => team.members.includes(name));
@@ -130,11 +137,15 @@ window.submitNames = async function submitNames() {
         alert("오류가 발생했습니다. 다시 시도하세요.");
         return;
       }
+    } else {
+      unregisteredNames.push(name); // 등록되지 않은 이름 추가
     }
   }
 
   if (nameExists) {
     alert("이미 등록된 이름입니다.");
+  } else if (unregisteredNames.length > 0) {
+    alert(`다음 이름은 등록되지 않았습니다: ${unregisteredNames.join(", ")}`);
   } else {
     for (const name of newMembers) {
       const teamIndex = teams.findIndex((team) => team.members.includes(name));
@@ -171,3 +182,5 @@ teams.forEach((team, index) => {
 });
 
 displayTeams();
+
+document.getElementById("entryModal").addEventListener("click", closeModal);

@@ -1,42 +1,70 @@
 body {
+    background: url('/images/background_mobile.jpg') no-repeat center;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: black;
     color: white;
+    text-align: center;
 }
 
-.container {
+.title-text {
     text-align: center;
-    max-width: 300px;
-    width: 100%;
+    color: #5E5E5E;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 126px;
+}
+
+.input-button-container {
+    background-color: rgba(246, 246, 246, 0.4); /* 컨테이너의 반투명 배경 */
+    padding: 22px;
+    border: solid 1px #F1F1F1;
+    border-radius: 24px; /* 컨테이너의 둥근 모서리 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px; /* 입력 필드와 버튼 사이의 간격 */
+    width: 290px;
+    height: 152px;
+}
+
+input,
+button {
+    width: 240px;
+    height: 50px;
+    border-radius: 12px;
+    border: none;
+    box-sizing: border-box; /* 패딩과 보더를 너비에 포함 */
 }
 
 input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1.2em;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #64C59A;
-    background-color: #333;
-    color: white;
+    padding: 0 13px; /* 좌우 패딩 */
+    font-size: 16px;
+    background-color: #f2f2f2;
+    color: #5E5E5E;
+}
+
+input:focus {
+    outline: none;
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 1.2em;
+    font-size: 16px;
+    font-weight: bold;
     color: white;
-    background-color: #64C59A;
-    border: none;
-    border-radius: 5px;
+    background-color: rgba(152, 197, 202, 0.4);
+    border: solid 1px #f2f2f2;
     cursor: pointer;
 }
 
-p {
-    margin-top: 15px;
-    color: #64C59A;
-}
+.logo-image {
+    margin-top: 126px; /* title-text 아래에 45px 간격 */
+    height: 24px;
+    width: 63px;
+  }
