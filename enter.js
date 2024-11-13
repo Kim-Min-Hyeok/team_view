@@ -75,7 +75,12 @@ const teams = [
   },
 ];
 
+let isSubmitting = false;
+
 window.submitName = async function submitName() {
+  if (isSubmitting) return;
+  isSubmitting = true;
+
   const nameInput = document.getElementById("participantName");
   const name = nameInput.value.trim();
 
@@ -100,7 +105,7 @@ window.submitName = async function submitName() {
           alert("이미 등록된 이름입니다.");
         }
       } catch (error) {
-        console.error("Error reading current members", error);
+        console.error("현재 멤버 읽기 오류", error);
         alert("등록 중 오류가 발생했습니다. 다시 시도하세요.");
       }
     } else {
@@ -109,4 +114,6 @@ window.submitName = async function submitName() {
   } else {
     alert("이름을 입력하세요.");
   }
+
+  isSubmitting = false;
 };
