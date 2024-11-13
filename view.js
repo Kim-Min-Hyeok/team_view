@@ -85,9 +85,26 @@ window.displayTeams = function displayTeams() {
     const teamDiv = document.getElementById(`team${index + 1}`);
     const membersDiv = teamDiv.querySelector(".team-members");
 
+    // 이전에 표시된 멤버 목록과 새 멤버 목록을 비교
+    const previousMembers = membersDiv.querySelectorAll("p");
+    const previousNames = Array.from(previousMembers).map((el) => el.textContent);
+
     membersDiv.innerHTML = team.currentMembers
       .map((member) => `<p>${member}</p>`)
       .join("");
+
+    // 새로 추가된 멤버에 대해 강조 효과를 줌
+    team.currentMembers.forEach((member, i) => {
+      if (!previousNames.includes(member)) {
+        const memberElement = membersDiv.children[i];
+        memberElement.classList.add("text-highlight");
+
+        // 일정 시간 후에 강조 효과 제거
+        setTimeout(() => {
+          memberElement.classList.remove("text-highlight");
+        }, 2000); // 2초 동안 강조
+      }
+    });
   });
 };
 

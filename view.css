@@ -209,3 +209,15 @@ body {
     visibility: hidden;
   }
   
+  @keyframes textHighlight {
+    from {
+      color: red;
+    }
+    to {
+      color: #535353; /* 원래 글자색 */
+    }
+  }
+  
+  .text-highlight {
+    animation: textHighlight 2s ease-out;
+  }
